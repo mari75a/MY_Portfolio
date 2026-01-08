@@ -184,146 +184,107 @@ export default function Projects() {
   };
 
   return (
-    <section
-      id="projects"
-      className="relative w-full py-28 bg-black overflow-hidden"
-    >
+    <section id="projects" className="relative w-full py-20 bg-black">
       {/* HEADER */}
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl md:text-5xl font-tech tracking-widest text-[#E6FF00]">
+        <h2 className="text-3xl md:text-5xl font-tech tracking-widest text-[#E6FF00]">
           PROJECTS
         </h2>
-        <p className="mt-4 text-gray-400">
+        <p className="mt-3 text-gray-400 text-sm md:text-base">
           Selected real-world systems and platforms.
         </p>
       </div>
 
-      {/* MAIN LAYOUT */}
-      <div className="relative mt-24 max-w-7xl mx-auto px-6 flex gap-12">
-        {/* ===== CAROUSEL ===== */}
-        <div className="relative w-[70%] h-[460px] flex items-center justify-center">
-          <AnimatePresence initial={false}>
-            {projects.map((p, i) => {
-              const offset = i - active;
-              const isActive = offset === 0;
-
-              if (Math.abs(offset) > 2) return null;
-
-              return (
-                <motion.div
-                  key={p.title}
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    x: `${offset * 55}%`,
-                    scale: isActive ? 1 : 0.75,
-                    opacity: isActive ? 1 : 0.1,
-                    filter: isActive ? "blur(0px)" : "blur(5px)",
-                  }}
-                  exit={{ opacity: 0 }}
-                  transition={{ type: "spring", stiffness: 120, damping: 18 }}
-                  className={`absolute rounded-xl overflow-hidden
-                  ${isActive ? "w-full h-full" : "w-[55%] h-[300px]"}
-                  bg-[#0B0B0D] border border-[#E6FF00]/20`}
-                >
-                  <img
-                    src={p.images[isActive ? imageIndex : 0].src}
-                    alt={p.title}
-                    className="absolute inset-0 w-full h-full object-contain "
-                  />
-
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
-
-                  {/* IMAGE INDICATORS */}
-                  {isActive && p.images.length > 0 && (
-                    <div className="absolute bottom-4 left-6 flex gap-3">
-                      {p.images.map((_, idx) => (
-                        <button
-                          key={idx}
-                          onClick={() => setImageIndex(idx)}
-                          className={`h-2 w-8 rounded-full transition ${idx === imageIndex ? "bg-[#E6FF00]" : "bg-white/20"
-                            }`}
-                        />
-                      ))}
-                    </div>
-                  )}
-
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+      {/* ================= MOBILE VIEW ================= */}
+      <div className="md:hidden mt-12 px-6">
+        <div className="rounded-xl overflow-hidden border border-[#E6FF00]/20">
+          <img
+            src={activeProject.images[imageIndex].src}
+            className="w-full h-[220px] object-contain bg-black"
+          />
         </div>
 
-        {/* ===== SIDE METADATA PANEL ===== */}
-        <div className="relative w-[30%]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeProject.title}
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 40 }}
-              transition={{ duration: 0.4 }}
-              className="h-full flex flex-col justify-center"
-            >
-              <h3 className="text-2xl font-tech text-[#E6FF00] tracking-wide">
-                {activeProject.title}
-              </h3>
+        {/* indicators */}
+        <div className="flex gap-2 mt-4">
+          {activeProject.images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setImageIndex(i)}
+              className={`h-2 w-6 rounded-full ${
+                i === imageIndex ? "bg-[#E6FF00]" : "bg-white/20"
+              }`}
+            />
+          ))}
+        </div>
 
-              <p className="mt-4 text-sm text-gray-300 leading-relaxed">
-                {activeProject.desc}
-              </p>
+        <h3 className="mt-6 text-xl font-tech text-[#E6FF00]">
+          {activeProject.title}
+        </h3>
 
-              <p className="mt-6 text-xs tracking-widest text-gray-400">
-                {activeProject.tech}
-              </p>
+        <p className="mt-3 text-sm text-gray-300">
+          {activeProject.desc}
+        </p>
 
-              <div className="mt-8 flex gap-4">
-                {activeProject.links?.demo && (
-                  <a
-                    href={activeProject.links.demo}
-                    target="_blank"
-                    className="px-5 py-2 border border-[#E6FF00]/40
-                    text-xs tracking-widest text-[#E6FF00]
-                    hover:bg-[#E6FF00] hover:text-black transition"
+        <p className="mt-4 text-xs tracking-widest text-gray-500">
+          {activeProject.tech}
+        </p>
+      </div>
+
+      {/* ================= DESKTOP VIEW ================= */}
+      <div className="hidden md:block relative mt-20 max-w-7xl mx-auto px-6">
+        <div className="flex gap-12">
+          {/* CAROUSEL */}
+          <div className="relative w-[70%] h-[460px]">
+            <AnimatePresence initial={false}>
+              {projects.map((p, i) => {
+                const offset = i - active;
+                if (Math.abs(offset) > 2) return null;
+
+                return (
+                  <motion.div
+                    key={p.title}
+                    animate={{
+                      x: `${offset * 55}%`,
+                      scale: offset === 0 ? 1 : 0.75,
+                      opacity: offset === 0 ? 1 : 0.2,
+                      filter: offset === 0 ? "blur(0)" : "blur(5px)",
+                    }}
+                    transition={{ type: "spring", stiffness: 120, damping: 18 }}
+                    className={`absolute rounded-xl overflow-hidden
+                      ${offset === 0 ? "w-full h-full" : "w-[55%] h-[300px]"}
+                      bg-[#0B0B0D] border border-[#E6FF00]/20`}
                   >
-                    LIVE DEMO
-                  </a>
-                )}
-                {activeProject.links?.github && (
-                  <a
-                    href={activeProject.links.github}
-                    target="_blank"
-                    className="px-5 py-2 border border-[#E6FF00]/40
-                    text-xs tracking-widest text-[#E6FF00]
-                    hover:bg-[#E6FF00] hover:text-black transition"
-                  >
-                    GITHUB
-                  </a>
-                )}
-              </div>
-            </motion.div>
-          </AnimatePresence>
+                    <img
+                      src={p.images[offset === 0 ? imageIndex : 0].src}
+                      className="w-full h-full object-contain"
+                    />
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </div>
+
+          {/* META */}
+          <div className="w-[30%] flex flex-col justify-center">
+            <h3 className="text-2xl font-tech text-[#E6FF00]">
+              {activeProject.title}
+            </h3>
+
+            <p className="mt-4 text-sm text-gray-300">
+              {activeProject.desc}
+            </p>
+
+            <p className="mt-6 text-xs tracking-widest text-gray-400">
+              {activeProject.tech}
+            </p>
+          </div>
         </div>
       </div>
 
       {/* CONTROLS */}
-      <div className="mt-16 flex justify-center gap-6">
-        <button
-          onClick={prev}
-          className="px-5 py-2 border border-[#E6FF00]/40
-          text-[#E6FF00] text-xs tracking-widest
-          hover:bg-[#E6FF00] hover:text-black transition"
-        >
-          PREV
-        </button>
-        <button
-          onClick={next}
-          className="px-5 py-2 border border-[#E6FF00]/40
-          text-[#E6FF00] text-xs tracking-widest
-          hover:bg-[#E6FF00] hover:text-black transition"
-        >
-          NEXT
-        </button>
+      <div className="mt-12 flex justify-center gap-6">
+        <button onClick={prev} className="btn-neon">PREV</button>
+        <button onClick={next} className="btn-neon">NEXT</button>
       </div>
     </section>
   );
