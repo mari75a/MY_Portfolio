@@ -5,8 +5,8 @@ import { useEffect } from "react";
 import bg from "../../assets/images/bg.png";
 import portrait from "../../assets/images/me2.png";
 
-import { FaReact, FaJava, FaDocker } from "react-icons/fa";
-import { SiMysql } from "react-icons/si";
+import { FaReact, FaJava, FaDocker, FaGitAlt, FaNodeJs } from "react-icons/fa";
+import { SiMysql, SiTailwindcss, SiCplusplus,  SiPython } from "react-icons/si";
 import { HiOutlineSignal } from "react-icons/hi2";
 
 /* Floating Badge */
@@ -66,7 +66,7 @@ export default function Hero() {
       {/* Overlay */}
       <div className="absolute inset-0 -z-10 bg-black/75 backdrop-blur-sm" />
 
-      {/* Mouse Glow (hidden on mobile for performance) */}
+      {/* Mouse Glow */}
       <motion.div
         style={{
           left: smoothX,
@@ -106,25 +106,6 @@ export default function Hero() {
             I build scalable web platforms, real-time systems, and modern
             developer tools focused on performance and clean architecture.
           </p>
-
-          {/* Buttons */}
-          <div className="flex gap-4 mt-6 justify-center md:justify-start flex-wrap">
-            <a
-              href="#projects"
-              className="px-5 py-2.5 bg-[#E6FF00] text-black font-semibold rounded-xl
-              transition hover:scale-105"
-            >
-              Projects
-            </a>
-
-            <a
-              href="#contact"
-              className="px-5 py-2.5 border border-white/20 rounded-xl
-              hover:bg-white/10 transition"
-            >
-              Contact
-            </a>
-          </div>
         </motion.div>
 
         {/* PORTRAIT */}
@@ -134,6 +115,7 @@ export default function Hero() {
           className="relative flex justify-center items-center mt-6 md:mt-0"
         >
           {/* Floating badges */}
+
           <FloatingBadge
             icon={<FaReact className="text-cyan-400 text-xs" />}
             text="React"
@@ -147,6 +129,23 @@ export default function Hero() {
             delay={0.5}
           />
 
+
+<FloatingBadge
+  icon={<SiCplusplus className="text-blue-500 text-xs" />}
+  text="C++"
+  className="top-1/4 -left-20 hidden lg:flex"
+  delay={4.5}
+/>
+
+
+
+<FloatingBadge
+  icon={<SiPython className="text-yellow-400 text-xs" />}
+  text="Python"
+  className="bottom-6 left-1/2 -translate-x-1/2 hidden sm:flex"
+  delay={5.5}
+/>
+
           <FloatingBadge
             icon={<SiMysql className="text-blue-400 text-xs" />}
             text="MySQL"
@@ -159,6 +158,34 @@ export default function Hero() {
             text="WebSocket"
             className="-bottom-4 right-6 sm:-bottom-6 sm:right-10"
             delay={1.5}
+          />
+
+          <FloatingBadge
+            icon={<FaDocker className="text-sky-400 text-xs" />}
+            text="Docker"
+            className="top-1/2 -right-14 hidden md:flex"
+            delay={2}
+          />
+
+          <FloatingBadge
+            icon={<FaNodeJs className="text-green-500 text-xs" />}
+            text="Node.js"
+            className="top-1/3 -left-16 hidden md:flex"
+            delay={2.5}
+          />
+
+          <FloatingBadge
+            icon={<FaGitAlt className="text-orange-500 text-xs" />}
+            text="Git"
+            className="bottom-1/3 -right-16 hidden md:flex"
+            delay={3}
+          />
+
+          <FloatingBadge
+            icon={<SiTailwindcss className="text-sky-400 text-xs" />}
+            text="Tailwind"
+            className="bottom-16 left-1/2 -translate-x-1/2 hidden sm:flex"
+            delay={3.5}
           />
 
           {/* Glow */}
