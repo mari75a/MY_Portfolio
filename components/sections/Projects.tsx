@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
 // ===== PROJECT IMAGES =====
-import ampora1 from "../../assets/projects/ampora-1.png";
+import ampora1 from "../../assets/projects/ampora1.jpg";
 import ampora2 from "../../assets/projects/ampora-2.png";
 import ampora3 from "../../assets/projects/ampora-3.png";
 
